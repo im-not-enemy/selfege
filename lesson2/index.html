@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://tonejs.github.io/build/Tone.js"></script>
+    <script src="../tools/piano.js"></script>
+    <script src="../tools/general.js"></script>
+    <script src="../core.js"></script>
+    <script src="lesson2.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="requestPage">
+        <form id="requests">
+            ascOrDesc:
+            <input type="radio" name="ascOrDesc" value="asc" checked>asc
+            <input type="radio" name="ascOrDesc" value="desc">desc<br>
+            interval:
+            <input type="checkbox" name="interval" value="P1" checked="checked">P1</input>
+            <input type="checkbox" name="interval" value="m2">m2</input>
+            <input type="checkbox" name="interval" value="M2">M2</input>
+            <input type="checkbox" name="interval" value="m3">m3</input>
+            <input type="checkbox" name="interval" value="M3" checked="checked">M3</input>
+            <input type="checkbox" name="interval" value="P4">P4</input>
+            <input type="checkbox" name="interval" value="Tr">Tr</input>
+            <input type="checkbox" name="interval" value="P5" checked="checked">P5</input>
+            <input type="checkbox" name="interval" value="m6">m6</input>
+            <input type="checkbox" name="interval" value="M6">M6</input>
+            <input type="checkbox" name="interval" value="m7">m7</input>
+            <input type="checkbox" name="interval" value="M7">M7</input>
+            <input type="checkbox" name="interval" value="P8">P8</input>
+        </form>
+        <button onclick='loop=true;start()'>start</button>
+        <button onclick='stop()'>stop</button>
+    </div>  
+</body>
+</html>
