@@ -39,16 +39,19 @@
             <input type="checkbox" name="interval" value="M7">M7</input>
             <input type="checkbox" name="interval" value="P8">P8</input>
         </form>
-        <button id='play'>play</button>
     </div>    
-
     <div id="playingPage" class="hide">
-        <button id='play_first'>play first</button><br>
-        <button id='play_second'>play second</button><br>
-        <button id='play_both'>play both</button><br>
+        <button id='play_first'>
+            <div id="first_note"></div>
+        </button><br>
+        <button id='play_second'>
+            <div id="second_note"></div>
+        </button><br>
+        <button id='play_both'>
+            <div id="both_note"></div>
+        </button><br>
         <button id='succeed'>succeed</button><br>
-        <button id='failed'>failed</button><br>
-        <button id='next'>next</button>
+        <button id='failed'>failed</button>
     </div>    
 
     <div id="resultPage" class="hide">

@@ -1,6 +1,7 @@
 import Piano from './piano.js';
-import Harvester from './harvester.js'
-import Questioner from './questioner.js'
+import Harvester from './harvester.js';
+import Questioner from './questioner.js';
+import * as abcWrapper from './abcWrapper.js';
 
 export default class Lesson {
     formStatus = new Object();
@@ -28,5 +29,8 @@ export default class Lesson {
         //第二音以降を取得
         let second = this.questioner.getNextSound(previous,intervals,direction,this.piano.getPrimaryKeys());
         return second;
+    }
+    renderAbc(element,sound){
+        abcWrapper.renderAbc(element,sound);
     }
 }

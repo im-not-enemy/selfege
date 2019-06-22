@@ -30,6 +30,12 @@ function setSounds(){
     second = lesson1.getNextSound(first,formStatus.intervals,formStatus.direction,formStatus.type);
     console.log(first);
     console.log(second);
+
+    //楽譜を表示
+    let sounds = [first.sound,second.sound];
+    lesson1.renderAbc("first_note",sounds[0]);
+    lesson1.renderAbc("second_note",sounds[1]);
+    lesson1.renderAbc("both_note",sounds);
 }
 
 function playSound(mode,time){
@@ -52,9 +58,8 @@ document.getElementById('start').addEventListener('click',function(){
     setQuestionAmount();
     general.switchPage(welcomePage,requestPage);
     general.switchPage(welcomePage,playingPage);
+    setSounds();
 });
-document.getElementById('play').addEventListener('click',function(){setSounds();});
-document.getElementById('next').addEventListener('click',function(){setSounds();});
 document.getElementById('play_first').addEventListener('click',function(){playSound('first',2)});
 document.getElementById('play_second').addEventListener('click',function(){playSound('second',2)});
 document.getElementById('play_both').addEventListener('click',function(){playSound('both',2)});
@@ -63,12 +68,16 @@ document.getElementById('succeed').addEventListener('click',function(){
     if(counter.add('succeed') == false){
         general.switchPage(requestPage,resultPage);
         general.switchPage(playingPage,resultPage);
+    } else {
+        setSounds();
     };
 });
 document.getElementById('failed').addEventListener('click',function(){
     if(counter.add('failed') == false){
         general.switchPage(requestPage,resultPage);
         general.switchPage(playingPage,resultPage);
+    } else {
+        setSounds();
     };
 });
 
