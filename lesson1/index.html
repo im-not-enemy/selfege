@@ -5,23 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="https://tonejs.github.io/build/Tone.js"></script>
-    <script src="../tools/piano.js"></script>
-    <script src="../tools/general.js"></script>
-    <script src="../core.js"></script>
-    <script src="lesson1.js"></script>
+    <style>.hide {display: none}</style>
 </head>
 <body>
-    <div id="startPage">
-        <button>start</button>
-    </div>
-    <div id="requestPage">
-        <form id="requests">
+    <div id="welcomePage">
+        <form id="welcome">
             questionAmount:
-            <input type="text" name="questionAmount" id="questionAmount" value="0"><br>
-            ascOrDesc:
-            <input type="radio" name="ascOrDesc" value="asc" checked>asc
-            <input type="radio" name="ascOrDesc" value="desc">desc<br>
+            <input type="text" name="questionAmount" id="questionAmount" value="10"><br>
+        </form>
+        <button id='start'>start</button>
+    </div>
+
+    <div id="requestPage" class="hide">
+        <form id="requests">
+            direction:
+            <input type="checkbox" name="direction" value="asc" checked>asc
+            <input type="checkbox" name="direction" value="desc">desc<br>
+            type:
+            <input type="checkbox" name="type" value="sharp" checked>sharp
+            <input type="checkbox" name="type" value="flat" checked>flat<br>
             interval:
             <input type="checkbox" name="interval" value="P1" checked="checked">P1</input>
             <input type="checkbox" name="interval" value="m2">m2</input>
@@ -37,16 +39,25 @@
             <input type="checkbox" name="interval" value="M7">M7</input>
             <input type="checkbox" name="interval" value="P8">P8</input>
         </form>
-        <button onclick='setRequest("initial")''>play</button>
+        <button id='play'>play</button>
     </div>    
-    <div id="playingPage">
-        <button onclick='playSound("first")'>play first</button><br>
-        <button onclick='playSound("second")'>play second</button><br>
-        <button onclick='playSound("both")'>play both</button><br>
-        <button onclick='setResult("succeed")'>succeed</button><br>
-        <button onclick='setResult("failed")'>failed</button><br>
-        <button onclick='setRequest()'>next</button>
+
+    <div id="playingPage" class="hide">
+        <button id='play_first'>play first</button><br>
+        <button id='play_second'>play second</button><br>
+        <button id='play_both'>play both</button><br>
+        <button id='succeed'>succeed</button><br>
+        <button id='failed'>failed</button><br>
+        <button id='next'>next</button>
     </div>    
-    <div id="resultPage"></div>    
+
+    <div id="resultPage" class="hide">
+        This is Result!!<br>
+        <button id='retry'>retry</button>
+    </div>    
+
+    <script src="../lib/Tone.js"></script>
+    <script src="../lib/abcjs_basic_5.3.5-min.js"></script>
+    <script type="module" src="./lesson1.js"></script>
 </body>
 </html>

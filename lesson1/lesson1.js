@@ -1,75 +1,78 @@
-let count = 0;
-let succeed = 0;
-let failed = 0;
-let general = new General();
+import Lesson from '../core/lesson.js';
+import Piano from '../core/piano.js';
+import Counter from '../core/counter.js';
+import * as general from '../core/general.js';
+
+let lesson1 = new Lesson();
 let piano = new Piano();
-let firstSound;
-let secondSound;
+let forms = document.forms.requests;
+let first = new Object();
+let second = new Object();
+let counter = new Counter();
 
-//Prepare (暫定対処:今後は何らかのボタンで指定可能にする予定)
-let flag = general.getRandomInt(0,1);
-if (flag == 0){
-    piano.setPrimaryKeys("flat");
-} else {
-    piano.setPrimaryKeys("sharp");
-}
-let primaryKeys = piano.getPrimaryKeys();
+let welcomePage = document.getElementById('welcomePage');
+let requestPage = document.getElementById('requestPage');
+let playingPage = document.getElementById('playingPage');
+let resultPage = document.getElementById('resultPage');
 
-//Main
-//フォームに入力された値を取得
-function setRequest(mode){
-    let forms = document.forms;
-    let checkbox = forms.requests.interval;
-    let general = new General(checkbox);
-    let checkboxStatus = general.getCheckboxStatus();
-
-    let index = general.getRandomInt(0,checkboxStatus.length-1);
-    let interval = checkboxStatus[index];
-    let ascOrDesc = forms.requests.ascOrDesc.value;
-
-    // 最初に呼び出された時だけ実行
-    if (mode == "initial"){
-        questionAmount = forms.requests.questionAmount.value;
-    }
-    //後続処理: 第一音と第二音の設定
-    let core = new Core(ascOrDesc,interval,primaryKeys);
-    let sounds = core.setSounds();
-    firstSound = sounds[0];
-    secondSound = sounds[1];
-    
-    //DEBUG
-    console.log("checkboxStatus: " + checkboxStatus);
-    console.log("interval: " + interval);
-    console.log("ascOrDesc: " + ascOrDesc);
-    console.log("firstSound: " + firstSound);
-    console.log("secondSound: " + secondSound);
+function setQuestionAmount(){
+    counter.setMax(document.forms.welcome.questionAmount.value);
 }
 
-//第一音/第二音の発声
-function playSound(firstOrSecond){
-    switch(firstOrSecond){
-        case "first":
-            piano.pushKey(firstSound);
+function setSounds(){
+    //フォームの状態を取得
+    lesson1.setFormStatus(forms);
+    let formStatus = lesson1.getFormStatus();
+    console.log(formStatus);
+
+    //第一音と第二音を取得
+    first = lesson1.getInitSound(formStatus.intervals,formStatus.direction,formStatus.type);
+    second = lesson1.getNextSound(first,formStatus.intervals,formStatus.direction,formStatus.type);
+    console.log(first);
+    console.log(second);
+}
+
+function playSound(mode,time){
+    switch(mode){
+        case 'first':
+            piano.pushKey(first.sound,time);
             break;
-        case "second":
-            piano.pushKey(secondSound);
+        case 'second':
+            piano.pushKey(second.sound,time);
             break;
-        case "both":
-            piano.pushKey(firstSound);
-            piano.pushKey(secondSound);
+        case 'both':
+            piano.pushKey(first.sound,time);
+            piano.pushKey(second.sound,time);
             break;
     }
-}
+};
 
-//結果情報のセット
-function setResult(result){
-    if (result == "succeed"){
-        succeed++;
-        count++;
-        console.log("result: succeed");
-    } else if (result == "failed"){
-        failed++;
-        count++;
-        console.log("result: failed");
-    }
-}
+//イベントリスナーセット
+document.getElementById('start').addEventListener('click',function(){
+    setQuestionAmount();
+    general.switchPage(welcomePage,requestPage);
+    general.switchPage(welcomePage,playingPage);
+});
+document.getElementById('play').addEventListener('click',function(){setSounds();});
+document.getElementById('next').addEventListener('click',function(){setSounds();});
+document.getElementById('play_first').addEventListener('click',function(){playSound('first',2)});
+document.getElementById('play_second').addEventListener('click',function(){playSound('second',2)});
+document.getElementById('play_both').addEventListener('click',function(){playSound('both',2)});
+
+document.getElementById('succeed').addEventListener('click',function(){
+    if(counter.add('succeed') == false){
+        general.switchPage(requestPage,resultPage);
+        general.switchPage(playingPage,resultPage);
+    };
+});
+document.getElementById('failed').addEventListener('click',function(){
+    if(counter.add('failed') == false){
+        general.switchPage(requestPage,resultPage);
+        general.switchPage(playingPage,resultPage);
+    };
+});
+
+document.getElementById('retry').addEventListener('click',function(){
+    general.switchPage(resultPage,welcomePage);
+    counter.reset();
+});
