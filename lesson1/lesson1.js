@@ -51,7 +51,14 @@ function playSound(mode,time){
             piano.pushKey(second.sound,time);
             break;
     }
-};
+}
+
+function getCount(){
+    let result = counter.get();
+    let percent = Math.round((result.succeed/result.all*100)*10)/10;
+    let message = result.succeed + "/" + result.all + " (" + percent + "%)";
+    document.getElementById('result').innerHTML = message;
+}
 
 //イベントリスナーセット
 document.getElementById('start').addEventListener('click',function(){
@@ -68,6 +75,7 @@ document.getElementById('succeed').addEventListener('click',function(){
     if(counter.add('succeed') == false){
         general.switchPage(requestPage,resultPage);
         general.switchPage(playingPage,resultPage);
+        getCount();
     } else {
         setSounds();
     };
@@ -76,6 +84,7 @@ document.getElementById('failed').addEventListener('click',function(){
     if(counter.add('failed') == false){
         general.switchPage(requestPage,resultPage);
         general.switchPage(playingPage,resultPage);
+        getCount();
     } else {
         setSounds();
     };

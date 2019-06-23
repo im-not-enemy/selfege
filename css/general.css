@@ -1,1 +1,6 @@
-.hide {display: none;}
+.hide {
+    display: none;
+}
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: aquamarine;
+}

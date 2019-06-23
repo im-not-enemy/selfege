@@ -1,66 +1,160 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/general.css" rel="stylesheet">
 </head>
-<body>
-    <div id="welcomePage">
-        <form id="welcome">
-            questionAmount:
-            <input type="text" name="questionAmount" id="questionAmount" value="10"><br>
-        </form>
-        <button id='start'>start</button>
-    </div>
+<body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="../index.html">Selfege</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="./index.html" id="linkToLesson1" role="button">
+                      Lesson 1.0
+                    </a>
+                    <a class="nav-link" href="../lesson2/index.html" id="linkToLesson1" role="button">
+                      Lesson 2.0
+                    </a>
+                    <a class="nav-link" href="../lesson3/index.html" id="linkToLesson1" role="button">
+                      Lesson 3.0
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    <div id="requestPage" class="hide">
-        <form id="requests">
-            direction:
-            <input type="checkbox" name="direction" value="asc" checked>asc
-            <input type="checkbox" name="direction" value="desc">desc<br>
-            type:
-            <input type="checkbox" name="type" value="sharp" checked>sharp
-            <input type="checkbox" name="type" value="flat" checked>flat<br>
-            interval:
-            <input type="checkbox" name="interval" value="P1">P1</input>
-            <input type="checkbox" name="interval" value="m2">m2</input>
-            <input type="checkbox" name="interval" value="M2">M2</input>
-            <input type="checkbox" name="interval" value="m3">m3</input>
-            <input type="checkbox" name="interval" value="M3" checked="checked">M3</input>
-            <input type="checkbox" name="interval" value="P4">P4</input>
-            <input type="checkbox" name="interval" value="Tr">Tr</input>
-            <input type="checkbox" name="interval" value="P5" checked="checked">P5</input>
-            <input type="checkbox" name="interval" value="m6">m6</input>
-            <input type="checkbox" name="interval" value="M6">M6</input>
-            <input type="checkbox" name="interval" value="m7">m7</input>
-            <input type="checkbox" name="interval" value="M7">M7</input>
-            <input type="checkbox" name="interval" value="P8" checked="checked">P8</input>
-        </form>
-    </div>    
-    <div id="playingPage" class="hide">
-        <button id='play_first'>
-            <div id="first_note"></div>
-        </button><br>
-        <button id='play_second'>
-            <div id="second_note"></div>
-        </button><br>
-        <button id='play_both'>
-            <div id="both_note"></div>
-        </button><br>
-        <button id='succeed'>succeed</button><br>
-        <button id='failed'>failed</button>
-    </div>    
+    <div class="container">
+        <div class="row">
+            <div class="col-8 col-sm-6 offset-2 offset-sm-3" style="background-color:sienna">
+                <div id="welcomePage" class="m-3">
+                    <form id="welcome">
+                        <!--questionAmount-->
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="questionAmount" id="questionAmount" aria-describedby="button-addon2" value="10">
+                            <div class="input-group-append">
+                                <button class="btn btn-info" type="button" id="start">start</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1 text-center" style="background-color:teal">
+                <div id="requestPage" class="m-3 hide">
+                <form id="requests">
+                    <!--direction:-->
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="direction" class="custom-control-input" id="asc" value="asc" checked>
+                        <label class="custom-control-label" for="asc">asc</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="direction" class="custom-control-input" id="desc" value="desc" checked>
+                        <label class="custom-control-label" for="desc">desc</label>
+                    </div><br>
+                    <!--type:-->
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="type" class="custom-control-input" id="sharp" value="sharp" checked>
+                        <label class="custom-control-label" for="sharp">sharp</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="type" class="custom-control-input" id="flat" value="flat" checked>
+                        <label class="custom-control-label" for="flat">flat</label>
+                    </div><br>
+                    <!--interval:-->
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="interval" class="custom-control-input" id="P1" value="P1">
+                        <label class="custom-control-label" for="P1">P1</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="interval" class="custom-control-input" id="m2" value="m2">
+                        <label class="custom-control-label" for="m2">m2</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="interval" class="custom-control-input" id="m3" value="m3">
+                        <label class="custom-control-label" for="m3">m3</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="interval" class="custom-control-input" id="M3" value="M3" checked>
+                        <label class="custom-control-label" for="M3">M3</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="interval" class="custom-control-input" id="P4" value="P4">
+                        <label class="custom-control-label" for="P4">P4</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="interval" class="custom-control-input" id="Tr" value="Tr">
+                        <label class="custom-control-label" for="Tr">Tr&nbsp;&nbsp;</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="interval" class="custom-control-input" id="P5" value="P5" checked>
+                        <label class="custom-control-label" for="P5">P5</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="interval" class="custom-control-input" id="m6" value="m6">
+                        <label class="custom-control-label" for="m6">m6</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="interval" class="custom-control-input" id="M6" value="M6">
+                        <label class="custom-control-label" for="M6">M6</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="interval" class="custom-control-input" id="m7" value="m7">
+                        <label class="custom-control-label" for="m7">m7</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="interval" class="custom-control-input" id="M7" value="M7">
+                        <label class="custom-control-label" for="M7">M7</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" name="interval" class="custom-control-input" id="P8" value="P8" checked>
+                        <label class="custom-control-label" for="P8">P8</label>
+                    </div><br>
+                </form>
+                </div>
+            </div>
+        </div>
 
-    <div id="resultPage" class="hide">
-        This is Result!!<br>
-        <button id='retry'>retry</button>
-    </div>    
+        <div class="row">
+            <div class="col-10 offset-1 text-center" style="background-color:gold">
+                <div id="playingPage" class="mt-4 mb-3 hide">
+                    <button id='play_first' class="btn btn-outline-info bg-white">
+                        <div id="first_note"></div>
+                    </button>
+                    <button id='play_both' class="btn btn-outline-info bg-white">
+                        <div id="both_note"></div>
+                    </button>
+                    <button id='play_second' class="btn btn-outline-info bg-white">
+                        <div id="second_note"></div>
+                    </button><br>
+                    <button id='succeed' class="btn btn-info m-2">succeed</button>
+                    <button id='failed' class="btn btn-info m-2">failed</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1 text-center" style="background-color:brown">
+                <div id="resultPage" class="m-4 hide">
+                    <div id="result"></div>
+                    <button id='retry' class="btn btn-info m-3">retry</button>
+                </div>    
+            </div>
+        </div>
+    </div> <!--container-->
 
     <script src="../lib/Tone.js"></script>
     <script src="../lib/abcjs_basic_5.3.5-min.js"></script>
+    <script src="../lib/jquery-3.3.1.slim.min.js"></script>
+    <script src="../lib/popper.min.js"></script>
+    <script src="../lib/bootstrap.min.js"></script>
     <script type="module" src="./lesson1.js"></script>
 </body>
 </html>
