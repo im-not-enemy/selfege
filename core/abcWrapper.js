@@ -2,8 +2,8 @@ export function renderAbc(element,sounds){
     if (typeof(sounds) == "string"){
         let note = convertToSingleNote(sounds);
         ABCJS.renderAbc(element,note,{
-            scale: 0.6,
-            staffwidth: 40,
+            scale: 1,
+            staffwidth: 70,
             paddingtop: 0,
             paddingbottom: 0,
             paddingright: 0,
@@ -19,8 +19,8 @@ export function renderAbc(element,sounds){
         notes = notes + ']';
         console.log("note: " + notes);
         ABCJS.renderAbc(element,notes,{
-            scale: 0.6,
-            staffwidth: 40,
+            scale: 1,
+            staffwidth: 70,
             paddingtop: 0,
             paddingbottom: 0,
             paddingright: 0,
