@@ -1,15 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/general.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Welcome</h1>
-    <a href="lesson1/index.html">Lesson1</a><br>
-    <a href="lesson2/index.html">Lesson2</a><br>
-    <a href="lesson3/index.html">Lesson3</a><br>
+    <body class="bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="./index.html">Selfege</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="./lesson1/index.html" id="linkToLesson1" role="button">
+                      Lesson 1.0
+                    </a>
+                    <a class="nav-link" href="./lesson2/index.html" id="linkToLesson1" role="button">
+                      Lesson 2.0
+                    </a>
+                    <a class="nav-link" href="./lesson3/index.html" id="linkToLesson1" role="button">
+                      Lesson 3.0
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="jumbotron m-3">
+        <h1 class="display-4">Welcome!</h1>
+        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    </div>
+
+    <script src="./lib/jquery-3.3.1.slim.min.js"></script>
+    <script src="./lib/popper.min.js"></script>
+    <script src="./lib/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,8 +1,14 @@
 export function renderAbc(element,sounds){
-    console.log("sounds: " + sounds);
     if (typeof(sounds) == "string"){
         let note = convertToSingleNote(sounds);
-        ABCJS.renderAbc(element,note);
+        ABCJS.renderAbc(element,note,{
+            scale: 0.6,
+            staffwidth: 40,
+            paddingtop: 0,
+            paddingbottom: 0,
+            paddingright: 0,
+            paddingleft: 0
+        });
         console.log("note: " + note);
     } else {
         let notes = '[';
@@ -12,7 +18,14 @@ export function renderAbc(element,sounds){
         }
         notes = notes + ']';
         console.log("note: " + notes);
-        ABCJS.renderAbc(element,notes);
+        ABCJS.renderAbc(element,notes,{
+            scale: 0.6,
+            staffwidth: 40,
+            paddingtop: 0,
+            paddingbottom: 0,
+            paddingright: 0,
+            paddingleft: 0
+        });
     }
 };
 

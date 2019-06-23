@@ -16,7 +16,7 @@ export default class Counter{
         } else if (result == 'failed'){
             this.count.failed++;
         }
-        if (this.count.all > this.max){
+        if (this.count.all >= this.max){
             return false;
         }
         console.log(this.count);
