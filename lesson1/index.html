@@ -8,10 +8,10 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/general.css" rel="stylesheet">
 </head>
-<body class="bg-dark text-light">
-    <div id="header" class="bg-secondary pb-3 mb-3">
+<body class="bg-photo-mobile text-light">
+    <div id="header" class="bg-transparent pb-5 mb-3">
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
-            <a class="navbar-brand" href="../index.html">Navbar</a>
+            <a class="navbar-brand" href="../index.html">Selfege</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -33,11 +33,11 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-8 col-sm-6 offset-2 offset-sm-3" style="background-color:sienna">
-                <div id="welcomePage" class="m-3">
+            <div class="col-6 offset-3">
+                <div id="welcomePage" class="mt-5 mb-5 pt-5 pb-5">
                     <form id="welcome">
                         <!--questionAmount-->
-                        <div class="input-group mb-3">
+                        <div class="input-group mt-5 pt-5">
                             <input type="text" class="form-control" name="questionAmount" id="questionAmount" aria-describedby="button-addon2" value="10">
                             <div class="input-group-append">
                                 <button class="btn btn-info" type="button" id="start">start</button>
@@ -48,8 +48,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-10 offset-1 text-center" style="background-color:teal">
-                <div id="requestPage" class="m-3 hide">
+            <div class="col-10 offset-1 text-center">
+                <div id="requestPage" class="m-3 hide bg-dark">
                 <form id="requests">
                     <!--direction:-->
                     <div class="custom-control custom-checkbox custom-control-inline">
@@ -124,7 +124,7 @@
         </div>
 
         <div class="row">
-            <div class="col-10 offset-1 text-center" style="background-color:gold">
+            <div class="col-10 offset-1 text-center">
                 <div id="playingPage" class="mt-4 mb-3 hide">
                     <button id='play_first' class="btn btn-outline-info bg-white">
                         <div id="first_note"></div>
@@ -135,15 +135,15 @@
                     <button id='play_second' class="btn btn-outline-info bg-white">
                         <div id="second_note"></div>
                     </button><br>
-                    <button id='succeed' class="btn btn-info m-2">succeed</button>
-                    <button id='failed' class="btn btn-info m-2">failed</button>
+                    <button id='succeed' class="btn btn-info m-2 mt-4">succeed</button>
+                    <button id='failed' class="btn btn-info m-2 mt-4">failed</button>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-10 offset-1 text-center" style="background-color:brown">
-                <div id="resultPage" class="m-4 hide">
-                    <div id="result"></div>
+            <div class="col-10 offset-1 text-center">
+                <div id="resultPage" class="mt-5 mb-5 pt-5 pb-5 hide">
+                    <div id="result" class="mt-5 p-3 bg-dark"></div>
                     <button id='retry' class="btn btn-info m-3">retry</button>
                 </div>    
             </div>

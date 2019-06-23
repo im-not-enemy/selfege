@@ -4,3 +4,6 @@
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
     background-color: aquamarine;
 }
+.bg-photo-mobile {
+    background-image: url(https://picsum.photos/360/720/?blur=3);
+}
