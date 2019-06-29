@@ -2,8 +2,22 @@
     display: none;
 }
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-    background-color: aquamarine;
+    /*background-color: aquamarine;*/
+    background-color: #17a2b8;
 }
-.bg-photo-mobile {
-    background-image: url(https://picsum.photos/360/720/?blur=3);
+.bg-photo {
+    background-image: url(https://picsum.photos/360/720/);
+}
+.bg-photo-lesson1 {
+    background-image: url(https://picsum.photos/id/1044/360/720/);
+}
+.bg-photo-index {
+    background-image: url(https://picsum.photos/id/177/360/720/);
+}
+.custom-range {
+    width: 50%;
+    height: 50%;
+}
+.glass {
+    backdrop-filter: blur(5px);
 }
