@@ -9,6 +9,7 @@ let forms = document.forms.requests;
 let first = new Object();
 let second = new Object();
 let counter = new Counter();
+let duration;
 
 let welcomePage = document.getElementById('welcomePage');
 let requestPage = document.getElementById('requestPage');
@@ -38,17 +39,24 @@ function setSounds(){
     lesson1.renderAbc("both_note",sounds);
 }
 
-function playSound(mode,time){
+function playSound(mode){
+    //長さを決定
+    lesson1.setFormStatus(forms);
+    let formStatus = lesson1.getFormStatus();
+    duration = formStatus.duration;
     switch(mode){
         case 'first':
-            piano.pushKey(first.sound,time);
+            piano.pushKey(first.sound,duration);
+            console.log(first.sound + " played. [duration: " + duration + "]");
             break;
         case 'second':
-            piano.pushKey(second.sound,time);
+            piano.pushKey(second.sound,duration);
+            console.log(second.sound + " played. [duration: " + duration + "]");
             break;
         case 'both':
-            piano.pushKey(first.sound,time);
-            piano.pushKey(second.sound,time);
+            piano.pushKey(first.sound,duration);
+            piano.pushKey(second.sound,duration);
+            console.log(first.sound + " & " + second.sound + " played. [duration: " + duration + "]");
             break;
     }
 }
@@ -67,9 +75,9 @@ document.getElementById('start').addEventListener('click',function(){
     general.switchPage(welcomePage,playingPage);
     setSounds();
 });
-document.getElementById('play_first').addEventListener('click',function(){playSound('first',2)});
-document.getElementById('play_second').addEventListener('click',function(){playSound('second',2)});
-document.getElementById('play_both').addEventListener('click',function(){playSound('both',2)});
+document.getElementById('play_first').addEventListener('click',function(){playSound('first')});
+document.getElementById('play_second').addEventListener('click',function(){playSound('second')});
+document.getElementById('play_both').addEventListener('click',function(){playSound('both')});
 
 document.getElementById('succeed').addEventListener('click',function(){
     if(counter.add('succeed') == false){

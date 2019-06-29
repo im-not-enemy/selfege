@@ -11,6 +11,7 @@ export default class Lesson {
 
     setFormStatus(forms){
         //フォームの状態取得
+        this.formStatus.duration = forms.duration.value;
         this.formStatus.intervals = this.harvester.getCheckboxStatus(forms.interval);
         this.formStatus.direction = this.harvester.getCheckboxStatus(forms.direction);
         this.formStatus.type = this.harvester.getCheckboxStatus(forms.type);
