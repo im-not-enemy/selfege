@@ -19,19 +19,33 @@ export default class Questioner {
             nextSoundInterval: nextSoundInterval,
             nextDirection: ascOrDesc
         }
+        console.log(init)
         return init;
     }
     getNextSound(previous,intervals,direction,primaryKeys){
         let next = Object();
         let preSoundIndex = primaryKeys.indexOf(previous.sound);
+
         if (previous.nextDirection == "asc"){
             next.sound = primaryKeys[preSoundIndex + this.intervalList.indexOf(previous.nextSoundInterval)];
         } else if (previous.nextDirection == "desc"){
             next.sound = primaryKeys[preSoundIndex - this.intervalList.indexOf(previous.nextSoundInterval)];
         }
-        next.nextSoundInterval = intervals[getRandomInt(0,intervals.length-1)];
-        next.nextDirection = this.decideDirection(direction);
 
+        let futureSoundIndex = -1;
+
+        // 将来の音が配列の範囲外である場合は将来の音を再設定する
+        while(futureSoundIndex < 0 || primaryKeys.length-1 < futureSoundIndex){
+            next.nextSoundInterval = intervals[getRandomInt(0,intervals.length-1)];
+            next.nextDirection = this.decideDirection(direction);
+            let nextSoundIndex = primaryKeys.indexOf(next.sound);
+            let nextSoundIntervalIndex = this.intervalList.indexOf(next.nextSoundInterval);
+            if (next.nextDirection == "asc"){
+               futureSoundIndex = nextSoundIndex + nextSoundIntervalIndex; 
+            } else if (next.nextDirection == "desc"){
+               futureSoundIndex = nextSoundIndex - nextSoundIntervalIndex; 
+            }
+        }
         return next;
     }
     getRange(interval,ascOrDesc,primaryKeys){

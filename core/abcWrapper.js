@@ -1,9 +1,12 @@
-export function renderAbc(element,sounds){
+export function renderAbc(element,sounds,mode,scale,staffwidth){
+    /* mode: single */
     if (typeof(sounds) == "string"){
         let note = convertToSingleNote(sounds);
+        console.log("scale: " + scale);
+        console.log("staffwidth: " + staffwidth);
         ABCJS.renderAbc(element,note,{
-            scale: 0.8,
-            staffwidth: 55,
+            scale: scale,
+            staffwidth: staffwidth,
             paddingtop: 0,
             paddingbottom: 0,
             paddingright: 0,
@@ -11,21 +14,40 @@ export function renderAbc(element,sounds){
         });
         console.log("note: " + note);
     } else {
-        let notes = '[';
-        for (let i=0; i<sounds.length;i++){
-            let note = convertToSingleNote(sounds[i]);
-            notes = notes + note;
+        if (mode == "code"){
+            let notes = '[';
+            for (let i=0; i<sounds.length;i++){
+                let note = convertToSingleNote(sounds[i]);
+                notes = notes + note;
+            }
+            notes = notes + ']';
+            console.log("notes: " + notes);
+            ABCJS.renderAbc(element,notes,{
+                scale: scale,
+                staffwidth: staffwidth,
+                paddingtop: 0,
+                paddingbottom: 0,
+                paddingright: 0,
+                paddingleft: 0
+            });
+        } else if (mode="melody"){
+            let notes = '';
+            for (let i=0; i<sounds.length;i++){
+                let note = convertToSingleNote(sounds[i]);
+                notes = notes + note;
+            }
+            notes = notes + '|';
+            console.log("notes: " + notes);
+            ABCJS.renderAbc(element,notes,{
+                scale: scale,
+                staffwidth: staffwidth,
+                paddingtop: 0,
+                paddingbottom: 0,
+                paddingright: 0,
+                paddingleft: 0
+            });
+
         }
-        notes = notes + ']';
-        console.log("note: " + notes);
-        ABCJS.renderAbc(element,notes,{
-            scale: 0.8,
-            staffwidth: 55,
-            paddingtop: 0,
-            paddingbottom: 0,
-            paddingright: 0,
-            paddingleft: 0
-        });
     }
 };
 
@@ -52,3 +74,19 @@ export function convertToSingleNote(sound){
     }
 	return note;
 };
+
+export function convertToMessage(interval){
+    let type = interval.substr(0,1);
+    let degree = interval.substr(1,1);
+
+    if (type == "P"){
+        type = "カンゼン";
+    } else if (type == "M"){
+        type = "チョウ";
+    } else if (type == "m"){
+        type = "タン";
+    }
+    let message = type + degree + "度";
+    console.log("Message is "+message);
+    return message;
+}

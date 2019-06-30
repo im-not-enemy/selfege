@@ -34,9 +34,9 @@ function setSounds(){
 
     //楽譜を表示
     let sounds = [first.sound,second.sound];
-    lesson1.renderAbc("first_note",sounds[0]);
-    lesson1.renderAbc("second_note",sounds[1]);
-    lesson1.renderAbc("both_note",sounds);
+    lesson1.renderAbc("first_note",sounds[0],"single","0.8","55");
+    lesson1.renderAbc("second_note",sounds[1],"single","0.8","55");
+    lesson1.renderAbc("both_note",sounds,"code","0.8","55");
 }
 
 function playSound(mode){
