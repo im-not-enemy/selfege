@@ -1,105 +1,124 @@
-let count = 0;
-let succeed = 0;
-let failed = 0;
-let general = new General();
+import Lesson from '../core/lesson.js';
+import Piano from '../core/piano.js';
+import Counter from '../core/counter.js';
+import * as general from '../core/general.js';
+
+let lesson3 = new Lesson();
 let piano = new Piano();
-let firstSound;
-let secondSound;
-let ascOrDesc;
-let primaryKeys;
+let forms = document.forms.requests;
+let first = new Object();
+let second = new Object();
+let third = new Object();
+let fourth = new Object();
+let counter = new Counter();
+let duration;
 
-function prepare(){
-    //Prepare (暫定対処:今後は何らかのボタンで指定可能にする予定)
-    let flag1 = general.getRandomInt(0,1);
-    if (flag1 == 0){
-        piano.setPrimaryKeys("flat");
+let welcomePage = document.getElementById('welcomePage');
+let requestPage = document.getElementById('requestPage');
+let playingPage = document.getElementById('playingPage');
+let resultPage = document.getElementById('resultPage');
+
+function setQuestionAmount(){
+    counter.setMax(document.forms.welcome.questionAmount.value);
+}
+
+function setSounds(){
+    //フォームの状態を取得
+    lesson3.setFormStatus(forms);
+    let formStatus = lesson3.getFormStatus();
+    console.log(formStatus);
+
+    //第一音と第二音を取得
+    first = lesson3.getInitSound(formStatus.intervals,formStatus.direction,formStatus.type);
+    second = lesson3.getNextSound(first,formStatus.intervals,formStatus.direction,formStatus.type);
+    third = lesson3.getNextSound(second,formStatus.intervals,formStatus.direction,formStatus.type);
+    fourth = lesson3.getNextSound(third,formStatus.intervals,formStatus.direction,formStatus.type);
+    console.log(first);
+    console.log(second);
+    console.log(third);
+    console.log(fourth);
+
+    //楽譜を表示
+    let sounds = [first.sound,second.sound,third.sound,fourth.sound];
+    let mode = "melody";
+    let scale = "1.0";
+    let staffwidth = "230";
+    lesson3.renderAbc("notes",sounds,mode,scale,staffwidth);
+
+    //イベントリスナー設置
+    let button_array = [];
+    let svg_array = document.getElementById("notes").children[0].children;
+    for (let i=0; i<svg_array.length; i++){
+        if (svg_array[i].outerHTML.match(/rect/)){
+            button_array.push(svg_array[i]);
+        }
+    }
+    button_array[1].addEventListener('click',function(){playSound('first')})
+    button_array[2].addEventListener('click',function(){playSound('second')})
+    button_array[3].addEventListener('click',function(){playSound('third')})
+    button_array[4].addEventListener('click',function(){playSound('fourth')})
+}
+
+function playSound(mode){
+    //長さを決定
+    lesson3.setFormStatus(forms);
+    let formStatus = lesson3.getFormStatus();
+    duration = formStatus.duration;
+    switch(mode){
+        case 'first':
+            piano.pushKey(first.sound,duration);
+            console.log(first.sound + " played. [duration: " + duration + "]");
+            break;
+        case 'second':
+            piano.pushKey(second.sound,duration);
+            console.log(second.sound + " played. [duration: " + duration + "]");
+            break;
+        case 'third':
+            piano.pushKey(third.sound,duration);
+            console.log(third.sound + " played. [duration: " + duration + "]");
+            break;
+        case 'fourth':
+            piano.pushKey(fourth.sound,duration);
+            console.log(fourth.sound + " played. [duration: " + duration + "]");
+            break;
+    }
+}
+
+function getCount(){
+    let result = counter.get();
+    let percent = Math.round((result.succeed/result.all*100)*10)/10;
+    let message = result.succeed + "/" + result.all + " (" + percent + "%)";
+    document.getElementById('result').innerHTML = message;
+}
+
+//イベントリスナーセット
+document.getElementById('start').addEventListener('click',function(){
+    setQuestionAmount();
+    general.switchPage(welcomePage,requestPage);
+    general.switchPage(welcomePage,playingPage);
+    setSounds();
+});
+
+document.getElementById('succeed').addEventListener('click',function(){
+    if(counter.add('succeed') == false){
+        general.switchPage(requestPage,resultPage);
+        general.switchPage(playingPage,resultPage);
+        getCount();
     } else {
-        piano.setPrimaryKeys("sharp");
-    }
-    primaryKeys = piano.getPrimaryKeys();
-
-    //Prepare (暫定対処:LESSON3ではasc,descの指定はランダム)
-    let flag2 = general.getRandomInt(0,1);
-    if (flag2 == 0){
-        ascOrDesc = "asc";
+        setSounds();
+    };
+});
+document.getElementById('failed').addEventListener('click',function(){
+    if(counter.add('failed') == false){
+        general.switchPage(requestPage,resultPage);
+        general.switchPage(playingPage,resultPage);
+        getCount();
     } else {
-        ascOrDesc = "desc";
-    }
-}
+        setSounds();
+    };
+});
 
-//Main
-//フォームに入力された値を取得
-function setRequest(mode){
-    let forms = document.forms;
-    let checkbox = forms.requests.interval;
-    let general = new General(checkbox);
-    let checkboxStatus = general.getCheckboxStatus();
-
-    let index = general.getRandomInt(0,checkboxStatus.length-1);
-    let interval = checkboxStatus[index];
-
-    // 最初に呼び出された時だけ実行
-    if (mode == "initial"){
-        questionAmount = forms.requests.questionAmount.value;
-    }
-
-    prepare();
-
-    //後続処理: 音の設定
-    let core = new Core(ascOrDesc,interval,primaryKeys);
-    let sounds = core.setSounds(4,checkboxStatus);
-    firstSound = sounds[0];
-    secondSound = sounds[1];
-    thirdSound = sounds[2];
-    fourthSound = sounds[3];
-
-    firstNote = core.convertToNote(firstSound);
-    secondNote = core.convertToNote(secondSound);
-    thirdNote = core.convertToNote(thirdSound);
-    fourthNote = core.convertToNote(fourthSound);
-    abc = "L: 1/4\n" +
-    "I: papersize A3\n" +
-    "%%scale 1.5\n" +
-    firstNote + "|" + secondNote + "|" + thirdNote + "|" + fourthNote;
-    ABCJS.renderAbc("sheet", abc);
-
-    //DEBUG
-    console.log("checkboxStatus: " + checkboxStatus);
-    console.log("interval: " + interval);
-    console.log("ascOrDesc: " + ascOrDesc);
-    console.log("firstSound: " + firstSound);
-    console.log("secondSound: " + secondSound);
-    console.log("thirdSound: " + thirdSound);
-    console.log("fourthSound: " + fourthSound);
-}
-
-//第一音/第二音/第三音/第四音の発声
-function playSound(sound){
-    switch(sound){
-        case "first":
-            piano.pushKey(firstSound);
-            break;
-        case "second":
-            piano.pushKey(secondSound);
-            break;
-        case "third":
-            piano.pushKey(thirdSound);
-            break;
-        case "fourth":
-            piano.pushKey(fourthSound);
-            break;
-    }
-}
-
-//結果情報のセット
-function setResult(result){
-    if (result == "succeed"){
-        succeed++;
-        count++;
-        console.log("result: succeed");
-    } else if (result == "failed"){
-        failed++;
-        count++;
-        console.log("result: failed");
-    }
-}
+document.getElementById('retry').addEventListener('click',function(){
+    general.switchPage(resultPage,welcomePage);
+    counter.reset();
+});

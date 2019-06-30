@@ -31,7 +31,7 @@ export default class Lesson {
         let second = this.questioner.getNextSound(previous,intervals,direction,this.piano.getPrimaryKeys());
         return second;
     }
-    renderAbc(element,sound){
-        abcWrapper.renderAbc(element,sound);
+    renderAbc(element,sounds,mode,scale,staffwidth){
+        abcWrapper.renderAbc(element,sounds,mode,scale,staffwidth);
     }
 }
