@@ -52,3 +52,19 @@ export function convertToSingleNote(sound){
     }
 	return note;
 };
+
+export function convertToMessage(interval){
+    let type = interval.substr(0,1);
+    let degree = interval.substr(1,1);
+
+    if (type == "P"){
+        type = "カンゼン";
+    } else if (type == "M"){
+        type = "チョウ";
+    } else if (type == "m"){
+        type = "タン";
+    }
+    let message = type + degree + "度";
+    console.log("Message is "+message);
+    return message;
+}

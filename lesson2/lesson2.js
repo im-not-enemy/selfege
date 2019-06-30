@@ -1,81 +1,84 @@
-let count = 0;
-let succeed = 0;
-let failed = 0;
-let general = new General();
+import Lesson from '../core/lesson.js';
+import Piano from '../core/piano.js';
+import * as general from '../core/general.js';
+import {convertToMessage} from '../core/abcWrapper.js';
+
+let lesson2 = new Lesson();
 let piano = new Piano();
 let ssu = new SpeechSynthesisUtterance();
-let firstSound;
-let secondSound;
+let forms = document.forms.requests;
+let first = new Object();
+let second = new Object();
+let duration;
+let loop;
 
-//Prepare (暫定対処:今後は何らかのボタンで指定可能にする予定)
-let flag = general.getRandomInt(0,1);
-if (flag == 0){
-    piano.setPrimaryKeys("flat");
-} else {
-    piano.setPrimaryKeys("sharp");
-}
-let primaryKeys = piano.getPrimaryKeys();
+let playButton = document.getElementById('playButton');
+let stopButton = document.getElementById('stopButton');
 
-//Main
-//フォームに入力された値を取得
-function setRequest(mode){
-    let forms = document.forms;
-    let checkbox = forms.requests.interval;
-    let general = new General(checkbox);
-    let checkboxStatus = general.getCheckboxStatus();
+function setSounds(){
+    //フォームの状態を取得
+    lesson2.setFormStatus(forms);
+    let formStatus = lesson2.getFormStatus();
+    console.log(formStatus);
 
-    let index = general.getRandomInt(0,checkboxStatus.length-1);
-    let interval = checkboxStatus[index];
-    let ascOrDesc = forms.requests.ascOrDesc.value;
-
-    //後続処理: 第一音と第二音の設定
-    let core = new Core(ascOrDesc,interval,primaryKeys);
-    let sounds = core.setSounds();
-    firstSound = sounds[0];
-    secondSound = sounds[1];
+    //第一音と第二音を取得
+    first = lesson2.getInitSound(formStatus.intervals,formStatus.direction,formStatus.type);
+    second = lesson2.getNextSound(first,formStatus.intervals,formStatus.direction,formStatus.type);
+    console.log(first);
+    console.log(second);
 
     // 後続処理: TTSの台詞設定
-    ssu.text = core.convertToMessage(interval);
+    ssu.text = convertToMessage(first.nextSoundInterval);
     ssu.lang = 'ja-JP';
-    
-    //DEBUG
-    console.log("checkboxStatus: " + checkboxStatus);
-    console.log("interval: " + interval);
-    console.log("ascOrDesc: " + ascOrDesc);
-    console.log("firstSound: " + firstSound);
-    console.log("secondSound: " + secondSound);
 }
 
-//第一音/第二音の発声
-function playSound(firstOrSecond){
-    switch(firstOrSecond){
-        case "first":
-            piano.pushKey(firstSound);
+function playSound(mode){
+    //長さを決定
+    lesson2.setFormStatus(forms);
+    let formStatus = lesson2.getFormStatus();
+    duration = formStatus.duration;
+    switch(mode){
+        case 'first':
+            piano.pushKey(first.sound,duration);
+            console.log(first.sound + " played. [duration: " + duration + "]");
             break;
-        case "second":
-            piano.pushKey(secondSound);
+        case 'second':
+            piano.pushKey(second.sound,duration);
+            console.log(second.sound + " played. [duration: " + duration + "]");
             break;
-        case "both":
-            piano.pushKey(firstSound);
-            piano.pushKey(secondSound);
+        case 'both':
+            piano.pushKey(first.sound,duration);
+            piano.pushKey(second.sound,duration);
+            console.log(first.sound + " & " + second.sound + " played. [duration: " + duration + "]");
             break;
     }
 }
 
+//イベントリスナーセット
+document.getElementById('playButton').addEventListener('click',function(){
+    general.switchPage(playButton,stopButton);
+    setSounds();
+    loop = true;
+    start();
+});
+document.getElementById('stopButton').addEventListener('click',function(){
+    stop();
+    general.switchPage(stopButton,playButton);
+});
+
 //起動
 function start(){
-    console.log("loop: " + loop);
     if(loop == true){
-        setRequest();
+        setSounds();
         playSound("first");
         setTimeout(
-            function(){playSound("second");},2000 //2000ミリ秒待ってから
+            function(){playSound("second");},(duration*1000) //第一音が鳴り終わったら発声
         );
         setTimeout(
-            function(){speechSynthesis.speak(ssu);},6000 //6000ミリ秒待ってから発生
+            function(){speechSynthesis.speak(ssu);},(duration*1000*2+2000) //第二音が鳴り終わってから2秒後に発生
         );
         setTimeout(
-            function(){start();},8000 //8000ミリ秒待ってから発生
+            function(){start();},(duration*1000*2+2000+2000) //解答が鳴り終わってから2秒後に発声
         );
     }
 }
