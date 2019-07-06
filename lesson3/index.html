@@ -31,26 +31,10 @@
             </div>
         </nav>
     </div>
-
     <div class="container">
         <div class="row">
-            <div class="col-6 offset-3">
-                <div id="welcomePage" class="mt-5 mb-5 pt-5 pb-5">
-                    <form id="welcome">
-                        <!--questionAmount-->
-                        <div class="input-group mt-5 pt-5">
-                            <input type="text" class="form-control" name="questionAmount" id="questionAmount" aria-describedby="button-addon2" value="10">
-                            <div class="input-group-append">
-                                <button class="btn btn-info" type="button" id="start">start</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-10 offset-1 text-center">
-                <div id="requestPage" class="m-3 hide">
+                <div id="requestPage" class="m-3">
                 <form id="requests">
 
                     <label for="customRange">duration</label>
@@ -131,7 +115,20 @@
                 </div>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-6 offset-3 mt-5" id="welcomePage">
+                    <form id="welcome">
+                        <!--questionAmount-->
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="questionAmount" id="questionAmount" aria-describedby="button-addon2" value="10">
+                            <div class="input-group-append">
+                                <button class="btn btn-info" type="button" id="start">start</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-10 offset-1 text-center">
                 <div id="playingPage" class="mt-4 mb-3 hide">

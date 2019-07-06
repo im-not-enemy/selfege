@@ -120,5 +120,6 @@ document.getElementById('failed').addEventListener('click',function(){
 
 document.getElementById('retry').addEventListener('click',function(){
     general.switchPage(resultPage,welcomePage);
+    general.switchPage(resultPage,requestPage);
     counter.reset();
 });

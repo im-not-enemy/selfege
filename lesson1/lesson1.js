@@ -71,7 +71,6 @@ function getCount(){
 //イベントリスナーセット
 document.getElementById('start').addEventListener('click',function(){
     setQuestionAmount();
-    general.switchPage(welcomePage,requestPage);
     general.switchPage(welcomePage,playingPage);
     setSounds();
 });
@@ -100,5 +99,6 @@ document.getElementById('failed').addEventListener('click',function(){
 
 document.getElementById('retry').addEventListener('click',function(){
     general.switchPage(resultPage,welcomePage);
+    general.switchPage(resultPage,requestPage);
     counter.reset();
 });
