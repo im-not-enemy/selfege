@@ -68,7 +68,7 @@ export function convertToSingleNote(sound){
 	} else if (letterTail == "5"){
 	    note = note.toLowerCase(note);
 	} else if (letterTail == "6"){
-	    note = note + "'";
+	    note = note + "''";
     }
 	return note;
 };
