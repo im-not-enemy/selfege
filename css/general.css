@@ -5,21 +5,32 @@
     /*background-color: aquamarine;*/
     background-color: #17a2b8;
 }
-.bg-photo {
-    background-image: url(https://picsum.photos/360/720/);
-}
 .bg-photo-lesson1 {
-    /* background-image: url(https://picsum.photos/id/1044/360/720/); */
-    background-image: url(https://picsum.photos/id/699/360/720/);
+    /* background-image: url(https://picsum.photos/id/699/1200/900/); */
+    background-image: url("../img/bg-photo-lesson1.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
 .bg-photo-lesson2 {
-    background-image: url(https://picsum.photos/id/399/360/720/);
+    /* background-image: url(https://picsum.photos/id/399/1200/900/); */
+    background-image: url("../img/bg-photo-lesson2.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
 .bg-photo-lesson3 {
-    background-image: url(https://picsum.photos/id/974/360/720/);
+    /* background-image: url(https://picsum.photos/id/974/1200/900/); */
+    background-image: url("../img/bg-photo-lesson3.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
 .bg-photo-index {
-    background-image: url(https://picsum.photos/id/177/360/720/);
+    background-image: url("../img/bg-photo-index.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
 .custom-range {
     width: 50%;
