@@ -58,8 +58,8 @@ function setSounds(){
     //楽譜を表示
     let sounds = [first.sound,second.sound,third.sound,fourth.sound];
     let mode = "melody";
-    let scale = "1.0";
-    let staffwidth = "230";
+    let scale = "1.5";
+    let staffwidth = "250";
     lesson3.renderAbc("notes",sounds,mode,scale,staffwidth);
 
     //イベントリスナー設置
