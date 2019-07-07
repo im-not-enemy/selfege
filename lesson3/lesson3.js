@@ -23,20 +23,37 @@ function setQuestionAmount(){
 }
 
 function setSounds(){
+    //音の状態を初期化
+    first = undefined;
+    second.nextSoundInterval = undefined;
+    third.nextSoundInterval = undefined;
+    fourth.nextSoundInterval = undefined;
+
     //フォームの状態を取得
     lesson3.setFormStatus(forms);
     let formStatus = lesson3.getFormStatus();
     console.log(formStatus);
 
     //第一音と第二音を取得
-    first = lesson3.getInitSound(formStatus.intervals,formStatus.direction,formStatus.type);
-    second = lesson3.getNextSound(first,formStatus.intervals,formStatus.direction,formStatus.type);
-    third = lesson3.getNextSound(second,formStatus.intervals,formStatus.direction,formStatus.type);
-    fourth = lesson3.getNextSound(third,formStatus.intervals,formStatus.direction,formStatus.type);
+    lesson3.setPrimaryKeys(formStatus.type);
+    first = lesson3.getInitSound(formStatus.intervals,formStatus.direction);
+    console.log("set first");
     console.log(first);
-    console.log(second);
-    console.log(third);
-    console.log(fourth);
+    while (second.nextSoundInterval == undefined){
+        second = lesson3.getNextSound(first,formStatus.intervals,formStatus.direction);
+        console.log("set second");
+        console.log(second);
+    };
+    while (third.nextSoundInterval == undefined){
+        third = lesson3.getNextSound(second,formStatus.intervals,formStatus.direction);
+        console.log("set third");
+        console.log(third);
+    };
+    while (fourth.nextSoundInterval == undefined){
+        fourth = lesson3.getNextSound(third,formStatus.intervals,formStatus.direction);
+        console.log("set fourth");
+        console.log(fourth);
+    };
 
     //楽譜を表示
     let sounds = [first.sound,second.sound,third.sound,fourth.sound];

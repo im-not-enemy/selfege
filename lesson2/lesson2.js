@@ -22,8 +22,9 @@ function setSounds(){
     console.log(formStatus);
 
     //第一音と第二音を取得
-    first = lesson2.getInitSound(formStatus.intervals,formStatus.direction,formStatus.type);
-    second = lesson2.getNextSound(first,formStatus.intervals,formStatus.direction,formStatus.type);
+    lesson2.setPrimaryKeys(formStatus.type);
+    first = lesson2.getInitSound(formStatus.intervals,formStatus.direction);
+    second = lesson2.getNextSound(first,formStatus.intervals,formStatus.direction);
     console.log(first);
     console.log(second);
 

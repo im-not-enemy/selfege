@@ -19,14 +19,16 @@ export default class Lesson {
     getFormStatus(){
         return this.formStatus;
     }
-    getInitSound(intervals,direction,type){
+    setPrimaryKeys(type){
         //フォームの状態から、使うピアノを選択
         this.piano.setPrimaryKeys(type);
+    }
+    getInitSound(intervals,direction){
         //第一音を取得
         let first = this.questioner.getInitSound(intervals,direction,this.piano.getPrimaryKeys());
         return first;
     }
-    getNextSound(previous,intervals,direction,type){
+    getNextSound(previous,intervals,direction){
         //第二音以降を取得
         let second = this.questioner.getNextSound(previous,intervals,direction,this.piano.getPrimaryKeys());
         return second;
